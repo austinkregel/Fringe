@@ -1,6 +1,41 @@
 With some basic stress testing using the Apache Benchmark suite I was able to get about 1700 requests per second with node 9.6 (the minimum version for fringejs) and with the latest (11.12.0 as of this writing) I was able to get about 2200 r/s.
 
-These tests were conducted 3 times per version of node and the best results are shown. The server used was a DigitalOcean droplet (2GB of Ram, 50GB Of disk, 1vCPU) running Ubuntu 18.04 and using `n` to change the versions of node. Node was the only program I installed and has not been tested with any other server running in the background. (at least, not intentionally.) 
+These tests were conducted 3 times per version of node and the best results are shown. The server used was a DigitalOcean droplet (2GB of Ram, 50GB Of disk, 1vCPU) running Ubuntu 18.04 and using `n` to change the versions of node. Node was the only program I installed and has not been tested with any other server running in the background. (at least, not intentionally.)
+
+### Side note about just express, and then just express and edge.js
+To compare the results here on their own it might be worth noting that this very basic express app:
+```js
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.get('/', (req, res) => res.send('Hello World!'))
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+```
+can average about 3100-3400 r/s. That's just in-memory request sending. Static text with no files or disk access.
+
+Using a modified version of the above app, to add in the edge rendering engine we average between 2000-2400 on Node 11.12.0 
+```js
+const express = require('express')
+const app = express()
+const port = 3000
+const edge = require('edge.js');
+const path = require('path');
+
+edge.registerViews(path.join(__dirname, 'resources/views'))
+
+app.get('/', (req, res) => res.send(edge.render('welcome')))
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+```
+
+I can only imagine as you add less in-memory things and use files from the disk, or access a database you just will get slowly slower results... 
+
+BUT the goal of this project is to give Laravel style structure to node projects, while also being able to handle more R/S. And this is a mission well accomplished.
+
+[See an article by Taylor Otwell regarding popular PHP Framework performance on a droplet set up for PHP instead of node](https://medium.com/@taylorotwell/benchmarking-laravel-symfony-zend-2c01c2b270f8) 
+ 
 # Node 9.6
 ```
 root@nodejs-s-1vcpu-2gb-nyc1-01:~# ab -t 10 -c 10 http://xxx.xxx.xxx.xxx:3000/
