@@ -1,4 +1,5 @@
 <p align="center">
+
 ![npm](https://img.shields.io/npm/dm/fringejs.svg)
 ![NPM](https://img.shields.io/npm/l/fringejs.svg)
 ![npm](https://img.shields.io/npm/v/fringejs.svg)
