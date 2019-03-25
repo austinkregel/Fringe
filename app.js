@@ -1,4 +1,5 @@
 require('fringejs');
+
 require('./helpers');
 
 const Config = app.make('Config');
