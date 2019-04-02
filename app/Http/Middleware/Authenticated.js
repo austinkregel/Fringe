@@ -8,6 +8,12 @@ module.exports = (req, res, next) => {
     let session = req.session || {};
 
     if (!session.user) {
+        if (app.wants_json(req)) {
+            return res.json({
+                error: 'Unauthenticated'
+            })
+        }
+
         return res.redirect('/login');
     }
 

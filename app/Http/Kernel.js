@@ -6,14 +6,13 @@
  */
 
 const reusedMiddleware = {
+    limit: require('./Middleware/RateLimitMiddleware'),
     authenticated: require('./Middleware/Authenticated'),
 }
 
 
 module.exports = {
-    web: Object.values({
-        ...reusedMiddleware
-    }),
+    web: Object.values(reusedMiddleware),
 
     ...reusedMiddleware
 }

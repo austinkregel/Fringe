@@ -9,8 +9,12 @@
     "test-coverage": "./node_modules/.bin/nyc --reporter=html npm test && ./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls"
   },
   "dependencies": {
+    "dotenv": "^7.0.0",
     "edge.js": "^1.1.4",
-    "fringejs": "^0.1.2"
+    "fringejs": "^0.1.2",
+    "mysql": "^2.16.0",
+    "rate-limiter-flexible": "^0.23.5",
+    "relation": "^0.1.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",

@@ -1,3 +1,4 @@
+require('dotenv').config()
 require('fringejs');
 
 require('./helpers');
@@ -10,6 +11,8 @@ const Config = app.make('Config');
  *-----------------------------------------------------------------
  */
 app.config = Config.register(app.base_path('/config'));
+
+require('./bootstrap/bootstrap')
 
 /*-----------------------------------------------------------------
  * Build the providers from the configuration files so we can
