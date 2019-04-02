@@ -8,9 +8,15 @@ app.storage_path = (...paths) => app.base_path('storage', ...paths);
 
 app.public_path = (...paths) => app.base_path('public', ...paths);
 
-app.controller = (namespace) => {
+app.controller = (namespace, method) => {
     let controller = require(app.base_path('app/Http/Controllers', namespace));
-    return new controller();
+    try {
+        controller = new controller()
+        // If it's a controller, we want to give it back it's context... Otherwise it's all messed up
+        return controller[method].bind(controller);
+    } catch (notAClassError) {
+        return controller[method]
+    }
 }
 
 app.url = (...paths) => app.make('path').join(app.config.app.url, ...paths);

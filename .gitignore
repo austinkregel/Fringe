@@ -5,3 +5,6 @@
 .env
 npm-debug.log
 yarn-error.log
+.idea/
+coverage/
+.nyc_output/
