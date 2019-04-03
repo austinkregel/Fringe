@@ -1,6 +1,9 @@
+
+
 app.base_path = (...paths) => {
-    return app.make('path').join(__dirname, ...paths);
+    return app.make('path').join(__dirname, '..', ...paths);
 };
+
 
 app.resource_path = (...paths) => app.base_path('resources', ...paths);
 
@@ -19,7 +22,7 @@ app.controller = (namespace, method) => {
     }
 }
 
-app.url = (...paths) => app.make('path').join(app.config.app.url, ...paths);
+app.url = (...paths) => app.config.app.url_schema + app.make('path').join(app.config.app.url, ...paths);
 
 let edge = app.make('edge.js')
 edge.registerViews(app.resource_path('views'));
@@ -32,10 +35,24 @@ app.fs =  {
     file_get_contents: (path) => app.make('fs').readFileSync(path, 'UTF-8')
 }
 
-
 app.wants_json = (req) => {
     let acceptJson = req.headers.accept === 'application/json' || false;
     let contentJson = req.headers['content-type'] === 'application/json' || false;
 
     return acceptJson || contentJson;
+}
+
+app.resolveObject = function(o, s) {
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+    var a = s.split('.');
+    for (var i = 0, n = a.length; i < n; ++i) {
+        var k = a[i];
+        if (k in o) {
+            o = o[k];
+        } else {
+            return;
+        }
+    }
+    return o;
 }

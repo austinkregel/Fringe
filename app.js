@@ -1,7 +1,7 @@
 require('dotenv').config()
 require('fringejs');
 
-require('./helpers');
+require('./bootstrap/helpers');
 
 const Config = app.make('Config');
 

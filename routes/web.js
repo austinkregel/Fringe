@@ -6,7 +6,8 @@ module.exports = (router) => {
     router.get({
         path: '/',
         resource: app.controller('WelcomeController', 'index'),
-        middleware: app.make('middleware.web'),
     });
-    router.get('/login', app.controller('WelcomeController', 'index'));
+
+    router.get('/login', app.controller('WelcomeController', 'index'), app.make('middleware.web'));
+    router.get('/register', app.controller('Auth/RegisterController', 'index'), app.make('middleware.web'));
 }

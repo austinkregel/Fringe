@@ -1,3 +1,5 @@
+const csrf = require('csurf')
+
 /*-------------------------------------------------------------------------------------
  * Here you can pull in middleware from pretty much from anywhere. The only stipulation
  * is that the pulled middleware MUST be a function. Otherwise stuff just will not work
@@ -5,14 +7,28 @@
  * ------------------------------------------------------------------------------------
  */
 
-const reusedMiddleware = {
+const middleware = {
     limit: require('./Middleware/RateLimitMiddleware'),
     authenticated: require('./Middleware/Authenticated'),
+    csrf: csrf({ cookie: true })
 }
 
-
 module.exports = {
-    web: Object.values(reusedMiddleware),
+    web: [
+        middleware.limit,
+        middleware.csrf,
+    ],
 
-    ...reusedMiddleware
+    auth: [
+        middleware.limit,
+        middleware.authenticated,
+        middleware.csrf,
+    ],
+
+    api: [
+        middleware.limit,
+        middleware.authenticated
+    ],
+
+    ...middleware
 }

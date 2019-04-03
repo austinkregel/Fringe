@@ -1,7 +1,9 @@
 const Router = app.make('Router');
-
-
+const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT || 3000
+
+
+Router.express.use(cookieParser())
 
 module.exports = class RouteServiceProvider {
     register() {

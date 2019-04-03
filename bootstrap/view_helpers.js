@@ -10,14 +10,16 @@ module.exports = {
             manifestDirectory = '/' + manifestDirectory
         }
 
-        if (app.fs.file_exists(app.public_path(manifestDirectory + '/hot'))) {
-            let url = app.fs.file_get_contents(app.public_path(manifestDirectory + '/hot'));
+        let hotFile = app.public_path(manifestDirectory + '/hot');
+
+        if (app.fs.file_exists(hotFile)) {
+            let url = app.fs.file_get_contents(hotFile);
 
             if (url.startsWith('http://') || url.startsWith('https://')) {
-                return app.make('path').join(url, path);
+                return url.trim() + path;
             }
 
-            return app.make('path').join('http://localhost:8080', path);
+            return 'http://localhost:8080' + path;;
         }
 
         let manifestPath = app.public_path(manifestDirectory + '/mix-manifest.json');
@@ -32,5 +34,14 @@ module.exports = {
         }
 
         return manifestDirectory + manifests[path]
+    },
+    config: (dotPath, default_) => {
+        let object = app.resolveObject(app.config, dotPath)
+
+        if (object) {
+            return object;
+        }
+
+        return default_;
     }
 }
