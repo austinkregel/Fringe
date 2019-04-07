@@ -10,7 +10,7 @@ const csrf = require('csurf')
 const middleware = {
     limit: require('./Middleware/RateLimitMiddleware'),
     authenticated: require('./Middleware/Authenticated'),
-    redirectIfAuthenticated: require('./Middleware/RedirectIfAuthenticated'),
+    guest: require('./Middleware/RedirectIfAuthenticated'),
     csrf: csrf({ cookie: true }),
 }
 

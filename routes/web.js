@@ -1,4 +1,4 @@
-const middlewareWithAuthenticatedRedirect = [app.make('middleware.redirectIfAuthenticated')].concat(app.make('middleware.web'));
+const middlewareWithAuthenticatedRedirect = [app.make('middleware.guest')].concat(app.make('middleware.web'));
 /**
  * @param {Router} router
  */
