@@ -1,3 +1,4 @@
+const middlewareWithAuthenticatedRedirect = [app.make('middleware.redirectIfAuthenticated')].concat(app.make('middleware.web'));
 /**
  * @param {Router} router
  */
@@ -5,9 +6,12 @@ module.exports = (router) => {
     // The middleware isn't binding for some reason...?
     router.get({
         path: '/',
+        middleware: app.make('middleware.web'),
         resource: app.controller('WelcomeController', 'index'),
     });
 
-    router.get('/login', app.controller('WelcomeController', 'index'), app.make('middleware.web'));
-    router.get('/register', app.controller('Auth/RegisterController', 'index'), app.make('middleware.web'));
+    router.post('/login', app.controller('Auth/LoginController', 'store'), middlewareWithAuthenticatedRedirect);
+    router.get('/login', app.controller('Auth/LoginController', 'index'), middlewareWithAuthenticatedRedirect);
+    router.get('/register', app.controller('Auth/RegisterController', 'create'), middlewareWithAuthenticatedRedirect);
+    router.post('/register', app.controller('Auth/RegisterController', 'store'), middlewareWithAuthenticatedRedirect);
 }

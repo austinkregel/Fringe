@@ -1,9 +1,6 @@
-
-
 app.base_path = (...paths) => {
     return app.make('path').join(__dirname, '..', ...paths);
 };
-
 
 app.resource_path = (...paths) => app.base_path('resources', ...paths);
 
@@ -56,3 +53,4 @@ app.resolveObject = function(o, s) {
     }
     return o;
 }
+

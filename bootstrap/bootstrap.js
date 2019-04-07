@@ -3,11 +3,17 @@
  * that way we everything gets registered in the same place.
  *-----------------------------------------------------------------
  */
+const { validateAll } = require('indicative')
 
+const knex = require('knex')(app.config.database[app.config.database.connection]);
+const bookshelf = require('bookshelf')(knex);
+bookshelf.plugin(require('bookshelf-eloquent'));
+
+app.shelf = bookshelf
 
 /**
  * Reigster the models here.
  */
 app.aliases({
-    'model.user': require(app.base_path('app/User'))
+    'validator': validateAll,
 })
