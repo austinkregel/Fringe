@@ -11,6 +11,10 @@ bookshelf.plugin(require('bookshelf-eloquent'));
 
 app.shelf = bookshelf
 
+app.closeActions.push(function() {
+    knex.destroy()
+})
+
 /**
  * Reigster the models here.
  */

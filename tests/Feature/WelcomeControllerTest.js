@@ -6,12 +6,17 @@ const assert = chai.assert;
 describe('loading the application', function () {
     var server;
     beforeEach(function () {
-        server = require('../bootstrap');
+        require('../bootstrap');
+        server = app.server
+    });
+
+    afterEach(function () {
+        app.close();
     });
 
     it('responds to /', function testSlash(done) {
         request(server)
             .get('/')
-            .expect(302, done);
+            .expect(200, done);
     });
 });

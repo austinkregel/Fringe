@@ -20,7 +20,11 @@ module.exports = class RouteServiceProvider {
         require(app.base_path('/routes/web'))(Router)
         require(app.base_path('/routes/api'))(Router)
 
-        Router.listen(PORT, () => console.log('Listening on ' + PORT))
+        app.server = Router.express.listen(PORT, () => console.log('Listening on ' + PORT))
+
+        app.closeActions.push(function () {
+            app.server.close();
+        })
     }
 
     registerMiddleware() {

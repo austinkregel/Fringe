@@ -4,4 +4,4 @@ require('../app')
 
 let Router =  app.make('Router');
 
-module.exports = Router.express;
+module.exports = Router;
