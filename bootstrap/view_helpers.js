@@ -35,7 +35,7 @@ module.exports = {
 
         return manifestDirectory + manifests[path]
     },
-    config: (dotPath, default_) => {
+    config(dotPath, default_) {
         let object = app.resolveObject(app.config, dotPath)
 
         if (object) {
@@ -43,5 +43,8 @@ module.exports = {
         }
 
         return default_;
-    }
+    },
+    route(routeName) {
+        return Object.values(app.routes).map(route => app.resolveObject(route, routeName))
+    },
 }

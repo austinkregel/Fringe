@@ -6,7 +6,7 @@ module.exports = (router) => {
     // The middleware isn't binding for some reason...?
     router.get({
         path: '/',
-        middleware: app.make('middleware.web'),
+        middleware: app.make('middleware.auth'),
         resource: app.controller('WelcomeController', 'index'),
     });
 

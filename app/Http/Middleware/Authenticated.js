@@ -17,5 +17,9 @@ module.exports = (req, res, next) => {
         return res.redirect('/login');
     }
 
+    app.view = app.view.share(Object.assign(require(app.base_path('./bootstrap/view_helpers')), {
+        user: session.user
+    }))
+
     next();
 }

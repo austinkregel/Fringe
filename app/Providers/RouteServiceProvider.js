@@ -16,11 +16,14 @@ Router.express.use(session({
 module.exports = class RouteServiceProvider {
     register() {
         this.registerMiddleware()
+        Router.express.use(require('express').static('public'))
 
         require(app.base_path('/routes/web'))(Router)
         require(app.base_path('/routes/api'))(Router)
 
         app.server = Router.express.listen(PORT, () => console.log('Listening on ' + PORT))
+
+        app.routes = Router.router.routes;
 
         app.closeActions.push(function () {
             app.server.close();

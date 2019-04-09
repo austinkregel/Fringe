@@ -1,5 +1,5 @@
 module.exports =  class WelcomeController {
-    index(req,res) {
-        return app.view.render('welcome')
+    async index(req,res) {
+        return await app.view.render('welcome')
     }
 };

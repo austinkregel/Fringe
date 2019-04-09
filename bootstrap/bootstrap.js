@@ -15,6 +15,13 @@ app.closeActions.push(function() {
     knex.destroy()
 })
 
+knex.schema.hasTable('users').catch(e => {
+    if (e.code === "ER_ACCESS_DENIED_ERROR") {
+        knex.destroy()
+        throw new Error("Database not set up!")
+    }
+})
+
 /**
  * Reigster the models here.
  */
