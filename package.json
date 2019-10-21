@@ -24,7 +24,7 @@
     "express-session": "^1.15.6",
     "fringejs": "^0.1.0",
     "indicative": "^5.0.8",
-    "knex": "0.13",
+    "knex": "0.19",
     "laravel-mix": "^4.0.15",
     "mysql": "^2.16.0",
     "pluralize": "^7.0.0",
