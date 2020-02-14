@@ -1,3 +1,4 @@
+let Application = require('forge-cli');
 require('dotenv').config()
 require('fringejs');
 app.closeActions = [];
@@ -15,15 +16,19 @@ app.config = Config.register(app.base_path('/config'));
 
 require('./bootstrap/bootstrap')
 
-/*-----------------------------------------------------------------
- * Build the providers from the configuration files so we can
- * ensure that all the local systems are loaded.
- * -----------------------------------------------------------------
- */
-app.register(app.config.app.providers || []);
-
 app.close = () => {
     app.closeActions.map(closure => closure());
 }
+app.register(app.config.app.providers.filter(provider => ![
+    app.base_path('app/Providers/RouteServiceProvider.js')
+].includes(provider)));
 
-process.stdin.resume()
+Application.register(__dirname, [
+    // You can register either a whole directory or a single command, or both!
+    'app/Commands'
+]);
+
+let args = Object.assign({}, { args: process.argv });
+// This "starts" the application
+
+Application.start(args) 

@@ -10,7 +10,8 @@ module.exports = {
             manifestDirectory = '/' + manifestDirectory
         }
 
-        let hotFile = app.public_path(manifestDirectory + '/hot');
+
+        let hotFile = app.public_path('/hot');
 
         if (app.fs.file_exists(hotFile)) {
             let url = app.fs.file_get_contents(hotFile);
@@ -19,7 +20,7 @@ module.exports = {
                 return url.trim() + path;
             }
 
-            return 'http://localhost:8080' + path;;
+            return 'http://192.168.1.105:8080' + path;;
         }
 
         let manifestPath = app.public_path(manifestDirectory + '/mix-manifest.json');

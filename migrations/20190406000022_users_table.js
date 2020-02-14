@@ -1,8 +1,5 @@
 exports.up = async function(knex, Promise) {
     await knex.schema.createTable('users', function(table) {
-        table.charset('utf8');
-        table.collate('utf8_unicode_ci');
-
         // User data.
         table.increments('id').unsigned().primary();
         table.string('name', 255).notNullable();
