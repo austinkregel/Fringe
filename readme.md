@@ -10,7 +10,7 @@ This project is still under development, but aims to strike a balance between pe
 
 Currently Fringe supports dynamic routing with templating support. It uses Express as it's underlying http engine.
 
-For an ORM style package I've been looking into [bookshelfjs](https://www.npmjs.com/package/bookshelfjs) but have not had a chance to test it or it's performance. 
+For an ORM style package I've been looking into [objection](https://www.npmjs.com/package/objection) but have not had a chance to test it or it's performance. 
 
 ## Contributing
 Thank you for considering contributing to Fringe! At this moment in time, there is no documentation, or contribution guide. So if you have any questions feel free to open an issue to describe the problem you're having. 
