@@ -25,7 +25,7 @@
 		"csurf": "^1.9.0",
 		"dayjs": "^1.8.12",
 		"dotenv": "^7.0.0",
-		"edge.js": "^1.1.4",
+		"edge.js": "^5.3.2",
 		"express-session": "^1.15.6",
 		"forge-cli": "^0.2.1",
 		"fringejs": "^0.1.0",
